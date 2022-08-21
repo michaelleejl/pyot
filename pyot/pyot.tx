@@ -1,7 +1,35 @@
-Space:
-    name=ID '{'
-        tags *= Tag[',']';'
-        devices *= Devices
-        spaces *= Space
-    '}'
+//To import and instantiate custom devices
+DeviceInstance:
+    'new' name=ID '=' class=[DeviceClass]'()'{
+        tags *=TagRef[',']
+    }
 ;
+
+DeviceClass:
+    'import' classname=ID
+;
+
+//To create tags and tag devices
+Tag:
+    'tag' & '#'name=ID
+;
+
+TagRef:
+    '#'tag=[Tag]
+
+//Creating spaces that are populated with devices
+Space:
+    name=ID ':'
+        tags *= TagRef[',']';'
+        devices *= DeviceInstance
+        spaces *= [Space]
+;
+
+Trigger:
+    Command | Date | State
+
+Action:
+    'action' name=ID':'
+        'on' triggers+=Trigger '{'
+            requests += Request
+        '}'
