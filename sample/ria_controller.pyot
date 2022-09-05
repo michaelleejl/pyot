@@ -13,18 +13,18 @@ controller Ria():
 	
 	//define behaviours
 	action disco_lights():
-        send all #discolight:
+        trigger all #discolight:
             .set_color('red')
         wait DateTime(00:00:05)
-        send all #discolight:
+        trigger all #discolight:
             .set_color('blue')
         wait DateTime(00:00:05)
 		
 	action sleepy_time():
 		on DateTime(23:59:59):
-		    send rad.set_intensity(5)
-		    send light.set_intensity(0)
-            send bathroom_light.set_intensity(0)
+		    trigger rad.set_intensity(5)
+		    trigger light.set_intensity(0)
+            trigger bathroom_light.set_intensity(0)
 	
 	action party_time():
         on command "party":
@@ -32,6 +32,6 @@ controller Ria():
     
     action control_bathroom_lights():
         on last_movement_sensed < DateTime.now() - DateTime(00:05:00):
-            send bathroom_light.set_intensity(0)
+            trigger bathroom_light.set_intensity(0)
         else:
-            send bathroom_light.set_intensity(4)
+            trigger bathroom_light.set_intensity(4)
