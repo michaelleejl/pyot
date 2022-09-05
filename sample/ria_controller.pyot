@@ -1,0 +1,37 @@
+controller Ria():
+	
+	//identify
+	identify phone: //ip address
+	identify computer: //ip address
+	
+	//link devices
+	wifi: @Home/wifi
+	light: @Home/Room1/room1_light rad
+    rad: @Home/Room1/room1_radiator light
+	bathroom_light: @Home/Room1/Bathroom/bathroom_light
+    bathroom_sensor: @Home/Room1/Bathroom/motionsensor
+	
+	//define behaviours
+	action disco_lights():
+        send all #discolight:
+            .set_color('red')
+        wait DateTime(00:00:05)
+        send all #discolight:
+            .set_color('blue')
+        wait DateTime(00:00:05)
+		
+	action sleepy_time():
+		on DateTime(23:59:59):
+		    send rad.set_intensity(5)
+		    send light.set_intensity(0)
+            send bathroom_light.set_intensity(0)
+	
+	action party_time():
+        while True:
+		    trigger disco_lights()
+    
+    action control_bathroom_lights():
+        on last_movement_sensed < DateTime.now() - DateTime(00:05:00):
+            send bathroom_light.set_intensity(0)
+        else:
+            send bathroom_light.set_intensity(4)

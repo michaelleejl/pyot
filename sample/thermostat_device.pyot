@@ -1,0 +1,26 @@
+import thermostatAPI
+
+device Sensor():
+    
+    state dev
+    state temperature
+    state power
+
+	
+    on initialise(owner = shared, private=False) :
+        dev = motionAPI.get_device()
+	
+	on connect():
+		print("connected")
+		
+	on disconnect():
+		print("disconnected")
+		
+    on startup():
+        power.set(1)
+
+    on shutdown():
+        power.set(0)
+
+    on dev.get_temperature !== temperature:
+        temperature.set(dev.get_temperature)

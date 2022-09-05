@@ -1,0 +1,24 @@
+import PhillipsHue from phillipshue_device.pyot
+import Radiator from radiator_device.pyot
+import Sensor from motionsensor_device.pyot
+import Thermostat from thermostat_device.pyot
+
+Home:
+
+	wiFi: GoogleMesh(){#wifi}
+
+	LivingRoom:
+		light1: PhillipsHue(){ #discoLight }
+		light2: PhillipsHue(){ #discoLight }
+
+	Room1:
+        room1_light: PhillipsHue(owner=Ria, private=True){}
+		room1_radiator: Radiator(owner=Ria, private=True){}
+		Bathroom:
+            motion_sensor: Sensor(owner=Ria, private=True){}
+            bathroom_light: PhillipsHue(owner=Ria, private=True){}
+
+	Room2:
+		room2_light: PhillipsHue(owner=Tim, private=True){}
+        room2_radiator: Radiator(owner=Tim, private=True){}
+        thermostat = Thermostat(owner=Time, private=True){}

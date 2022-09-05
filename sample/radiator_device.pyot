@@ -1,0 +1,26 @@
+import radiatorAPI
+
+device Radiator():
+    
+    state dev
+    state power
+    state intensity
+	
+    on initialise(owner = shared, private=False) :
+        dev = radiatorAPI.get_device()
+	
+	on connect():
+		print("connected")
+		
+	on disconnect():
+		print("disconnected")
+		
+    on startup():
+        power.set(1)
+
+    on shutdown():
+        power.set(0)
+
+    action set_intensity(i):
+        dev.set_intensity(i)
+        intensity.set(i)
