@@ -27,7 +27,7 @@ controller Ria():
             send bathroom_light.set_intensity(0)
 	
 	action party_time():
-        while True:
+        on command "party":
 		    trigger disco_lights()
     
     action control_bathroom_lights():
