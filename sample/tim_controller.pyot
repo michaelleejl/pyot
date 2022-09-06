@@ -1,0 +1,26 @@
+controller Tim():
+	
+	//identify
+	identify phone: //ip address
+	identify computer: //ip address
+	
+	//link devices
+	wifi: @Home/wifi
+	light: @Home/Room2/room2_light
+    rad: @Home/Room2/room2_radiator
+	thermostat: @Home/Room2/thermostat
+	
+	//define behaviours
+	
+	action preset():
+        on connect phone:
+		    trigger light.set_intensity(5)
+            trigger rad.set_intensity(3)
+    
+    action control_radiator():
+        on thermostat.temperature < 18:
+            trigger rad.set_intensity(3)
+        on thermostat.temperature >= 18 and thermostat.temperature < 25:
+            trigger rad.set_intensity(1)
+        else:
+            trigger rad.set_intensity(0)

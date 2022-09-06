@@ -6,8 +6,8 @@ controller Ria():
 	
 	//link devices
 	wifi: @Home/wifi
-	light: @Home/Room1/room1_light rad
-    rad: @Home/Room1/room1_radiator light
+	light: @Home/Room1/room1_light
+    rad: @Home/Room1/room1_radiator
 	bathroom_light: @Home/Room1/Bathroom/bathroom_light
     bathroom_sensor: @Home/Room1/Bathroom/motionsensor
 	
@@ -31,7 +31,7 @@ controller Ria():
 		    trigger disco_lights()
     
     action control_bathroom_lights():
-        on last_movement_sensed < DateTime.now() - DateTime(00:05:00):
+        on bathroom_sensor.last_movement_sensed < DateTime.now() - DateTime(00:05:00):
             trigger bathroom_light.set_intensity(0)
         else:
             trigger bathroom_light.set_intensity(4)
